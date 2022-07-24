@@ -11,9 +11,22 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Document</title>
+    <title>Weather Dashboard</title>
   </head>
   <body>
+    <div class="container">
+      <!-- Content here -->
+      <header class="jumbotron">
+        <h1 class="display-3">Weather Dashboard</h1>
+        <p id="currentDay" class="lead"></p>
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Search for a city:</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <button id='city-find' type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
