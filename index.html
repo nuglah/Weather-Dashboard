@@ -18,16 +18,54 @@
       <!-- Content here -->
       <header class="jumbotron">
         <h1 class="display-3">Weather Dashboard</h1>
-        <p id="currentDay" class="lead"></p>
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Search for a city:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </header>
+      <form>
+        <div class="row">
+          <div class="col-3">
+            <div class="row">
+              <label for="exampleInputEmail1">Search for a city:</label>
+            </div>
+            <div class="row">
+              <input type="text" class="form-control" id="input" />
+            </div>
+            <div class="row">
+              <button id="city-find" type="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </div>
+            <div class="row">
+              <div id="history"></div>
+              <ul id="list"></ul>
+            </div>
           </div>
-          <button id='city-find' type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <ul id="list"></ul>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-12">
+                <div id="currentWeather">
+                  <h2 id="location"></h2>
+                  <img src="" alt="weather-icon" />
+                  <p id="temp"></p>
+                  <p id="wind"></p>
+                  <p id="humidity"></p>
+                  <p id="uv-index"></p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div id="forecast"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.3/dayjs.min.js"
+      integrity="sha512-Ot7ArUEhJDU0cwoBNNnWe487kjL5wAOsIYig8llY/l0P2TUFwgsAHVmrZMHsT8NGo+HwkjTJsNErS6QqIkBxDw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

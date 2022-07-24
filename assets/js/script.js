@@ -2,7 +2,7 @@ var cityFind = document.getElementById("city-find");
 var repoList = document.getElementById("list");
 var formatType = "";
 
-$(".btn").on("click", function (event) {
+$("#city-find").on("click", function (event) {
   event.preventDefault();
   //   console.log(event.target.id);
   //   for (let i = 0; i < hours.length; i++) {
@@ -12,26 +12,56 @@ $(".btn").on("click", function (event) {
   //     }
   //   }
   console.log("beef");
-  getApi();
+  getSearchProps();
   //   https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 });
+// Icons
+//https://openweathermap.org/img/wn/13d@2x.png
+// Geo
+// http://api.openweathermap.org/geo/1.0/direct?q=kansas%20city{&limit=1&appid=1db3202914b346967d7bc18a2c8ad6a9
 
-var getSearchProps = function (format) {
+var getSearchProps = function () {
   const input = document.getElementById("input");
   console.log(input.value);
   const q = input.value;
-  var apiUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    format +
-    "/?q=" +
+  var geoUrl =
+    "http://api.openweathermap.org/geo/1.0/direct?q=" +
     encodeURIComponent(q) +
-    "&fo=json";
-  console.log(apiUrl);
-  fetch(apiUrl).then(function (response) {
+    "&limit=1&appid=1db3202914b346967d7bc18a2c8ad6a9";
+
+  fetch(geoUrl).then(function (response) {
     if (response.ok) {
-      response.json().then(function (data) {
+      response.json().then(function (result) {
         // displayRepos(data.items, language);
-        console.log("data", data.results);
+        console.log("result", result);
+        const weatherUrl =
+          "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+          result[0].lat +
+          "&lon=" +
+          result[0].lon +
+          "&mode=json" +
+          "&exclude=hourly,minutely,alerts" +
+          "&units=imperial" +
+          "&appid=1db3202914b346967d7bc18a2c8ad6a9";
+        console.log(weatherUrl);
+        fetch(weatherUrl).then(function (response) {
+          if (response.ok) {
+            response.json().then(function (data) {
+              console.log("data", data);
+              const current = data.current;
+              const imageUrl =
+                "https://openweathermap.org/img/wn/" +
+                data.current.icon +
+                ".png";
+              const daily = data.daily;
+              const date = dayjs(Date(current.dt)).format("MM/DD/YYYY");
+              $("#location").append(`${result[0].name} (${date})`);
+              $("#temp").append(`Temp: ${current.temp}°F`);
+            });
+          } else {
+            alert("Error: " + response.statusText);
+          }
+        });
       });
     } else {
       alert("Error: " + response.statusText);
