@@ -26,7 +26,12 @@
               <label for="exampleInputEmail1">Search for a city:</label>
             </div>
             <div class="row">
-              <input type="text" class="form-control" id="input" />
+              <input
+                type="text"
+                name="city-input"
+                class="form-control"
+                id="input"
+              />
             </div>
             <div class="row">
               <button id="city-find" type="submit" class="btn btn-primary">
@@ -34,8 +39,7 @@
               </button>
             </div>
             <div class="row">
-              <div id="history"></div>
-              <ul id="list"></ul>
+              <div id="history" class="col-12"></div>
             </div>
           </div>
           <div class="col-9">
@@ -54,57 +58,84 @@
                   <p id="temp"></p>
                   <p id="wind"></p>
                   <p id="humidity"></p>
-                  <p id="uv-index"></p>
+                  <span id="uv-span" style="display: none"
+                    >UV Index: <span style="color: white" id="uv-index"></span
+                  ></span>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12">
-                <div id="forecast"
-                <div id='day1' class="card" style="width: 18rem;">
+            <div id="forecast">
+              <div class="row">
+                <div id="day1" class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p id="temp"></p>
-                  <p id="wind"></p>
-                  <p id="humidity"></p>
+                    <h5 id="date1" class="card-title"></h5>
+                    <img
+                      style="display: none"
+                      id="daily-weather-img1"
+                      src=""
+                      alt="weather-icon"
+                    />
+                    <p id="temp1"></p>
+                    <p id="wind1"></p>
+                    <p id="humidity1"></p>
                   </div>
-                  <div id='day2' class="card" style="width: 18rem;">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p id="temp"></p>
-                  <p id="wind"></p>
-                  <p id="humidity"></p>
-                    
-                    </div>
+                </div>
+                <div id="day2" class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <img
+                      style="display: none"
+                      id="daily-weather-img2"
+                      src=""
+                      alt="weather-icon"
+                    />
+                    <p id="temp2"></p>
+                    <p id="wind2"></p>
+                    <p id="humidity2"></p>
                   </div>
-                  <div id='day3' class="card" style="width: 18rem;">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p id="temp"></p>
-                  <p id="wind"></p>
-                  <p id="humidity"></p>
-                     
-                    </div>
-                    <div id='day4' class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p id="temp"></p>
-                  <p id="wind"></p>
-                  <p id="humidity"></p>
-                        
-                      </div>
-                      <div id='day5' class="card" style="width: 18rem;">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p id="temp"></p>
-                  <p id="wind"></p>
-                  <p id="humidity"></p>
-                    
-                        </div>
-                      </div>
-                    </div>
+                </div>
+                <div id="day3" class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <img
+                      style="display: none"
+                      id="daily-weather-img3"
+                      src=""
+                      alt="weather-icon"
+                    />
+                    <p id="temp3"></p>
+                    <p id="wind3"></p>
+                    <p id="humidity3"></p>
                   </div>
-                </div></div>
+                </div>
+                <div id="day4" class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <img
+                      style="display: none"
+                      id="daily-weather-img4"
+                      src=""
+                      alt="weather-icon"
+                    />
+                    <p id="temp4"></p>
+                    <p id="wind4"></p>
+                    <p id="humidity4"></p>
+                  </div>
+                </div>
+                <div id="day5" class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <img
+                      style="display: none"
+                      id="daily-weather-img5"
+                      src=""
+                      alt="weather-icon"
+                    />
+                    <p id="temp5"></p>
+                    <p id="wind5"></p>
+                    <p id="humidity5"></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -1,29 +1,39 @@
 var cityFind = document.getElementById("city-find");
-var repoList = document.getElementById("list");
 var formatType = "";
-var forecast = [];
+var cityHistory = document.getElementById("list");
+var locations = JSON.parse(localStorage.getItem("locations")) || [];
+
+function getLocalStorage() {
+  $("#history").empty();
+  if (locations.length) {
+    for (let i = 0; i < locations.length; i++) {
+      const buttons = $(
+        "<div class='row mt-1'><button class=' historyBtn btn btn-secondary btn-block'>" +
+          locations[i].city +
+          "</button></div>"
+      );
+      buttons.appendTo("#history");
+    }
+  }
+  $(".historyBtn").on("click", function (event) {
+    event.preventDefault();
+    console.log("event", event.target.innerText);
+    if (event.target.innerText !== "") {
+      $('input[name="city-input"]').val(event.target.innerText);
+      getSearchProps(event.target.innerText, false);
+    }
+  });
+}
+getLocalStorage();
 
 $("#city-find").on("click", function (event) {
   event.preventDefault();
-  //   console.log(event.target.id);
-  //   for (let i = 0; i < hours.length; i++) {
-  //     if (hours[i].btn === event.target.id) {
-  //       const value = document.getElementById(hours[i].el).value;
-  //       hours[i].text = value;
-  //     }
-  //   }
   console.log("beef");
-  getSearchProps();
+  getSearchProps(document.getElementById("input").value, true);
 });
-// Icons
-//https://openweathermap.org/img/wn/13d@2x.png
-// Geo
-// http://api.openweathermap.org/geo/1.0/direct?q=kansas%20city{&limit=1&appid=1db3202914b346967d7bc18a2c8ad6a9
 
-var getSearchProps = function () {
-  const input = document.getElementById("input");
-  console.log(input.value);
-  const q = input.value;
+var getSearchProps = function (input, saveHistory) {
+  const q = input;
   var geoUrl =
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
     encodeURIComponent(q) +
@@ -32,8 +42,6 @@ var getSearchProps = function () {
   fetch(geoUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (result) {
-        // displayRepos(data.items, language);
-        console.log("result", result);
         if (result.length) {
           const weatherUrl =
             "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -44,32 +52,67 @@ var getSearchProps = function () {
             "&exclude=hourly,minutely,alerts" +
             "&units=imperial" +
             "&appid=1db3202914b346967d7bc18a2c8ad6a9";
-          console.log(weatherUrl);
+
           fetch(weatherUrl).then(function (response) {
             if (response.ok) {
               response.json().then(function (data) {
-                console.log("data", data);
                 const current = data.current;
                 const imageUrl =
                   "https://openweathermap.org/img/wn/" +
                   current.weather[0].icon +
                   ".png";
-                console.log(imageUrl);
+
                 const daily = data.daily;
-                const date = dayjs(Date(current.dt)).format("MM/DD/YYYY");
+
+                for (let i = 1; i < 6; i++) {
+                  const dailyImageUrl =
+                    "https://openweathermap.org/img/wn/" +
+                    daily[i].weather[0].icon +
+                    ".png";
+                  const date = dayjs().add(i, "day").format("MM/DD/YYYY");
+                  $("#date" + i).html(date);
+                  $("#daily-weather-img" + i).attr("src", dailyImageUrl);
+                  $("#daily-weather-img" + i).show();
+                  $("#temp" + i).html(`Temp: ${daily[i].temp.max}°F`);
+                }
+                const date = dayjs().format("MM/DD/YYYY");
                 $("#location").html(`${result[0].name} (${date})`);
                 $("#current-weather-img").attr("src", imageUrl);
                 $("#current-weather-img").show();
                 $("#temp").html(`Temp: ${current.temp}°F`);
                 $("#wind").html(`Wind: ${current.wind_speed} MPH`);
                 $("#humidity").html(`Humidity: ${current.humidity}%`);
-                $("#uv-index").html(`UV Index: ${current.uvi}`);
-                // for (let i = 0; i < daily.length; i++) {
-                //   $("#temp").html(`Temp: ${daily[i].temp}°F`);
-                //   $("#wind").html(`Wind: ${daily[i].wind_speed} MPH`);
-                //   $("#humidity").html(`Humidity: ${daily[i].humidity}%`);
-                //   return i === 5;
-                // }
+                if (current.uvi !== "") {
+                  $("#uv-span").attr("style", "display:block");
+                  if (parseFloat(current.uvi) <= 3.67) {
+                    $("#uv-index").attr(
+                      "style",
+                      "background-color:green; color:white; border-radius:5px; padding:2px;"
+                    );
+                  }
+                  if (
+                    parseFloat(current.uvi) > 3.67 &&
+                    parseFloat(current.uvi) < 7.34
+                  ) {
+                    $("#uv-index").attr(
+                      "style",
+                      "background-color:orange; color:white; border-radius:5px; padding:2px;"
+                    );
+                  }
+                  if (parseFloat(current.uvi) > 7.34) {
+                    $("#uv-index").attr(
+                      "style",
+                      "background-color:red; color:white; border-radius:5px; padding:2px;"
+                    );
+                  }
+                  $("#uv-index").html(`${current.uvi}`);
+                }
+
+                if (saveHistory) {
+                  locations.unshift({ city: result[0].name, url: weatherUrl });
+                  localStorage.setItem("locations", JSON.stringify(locations));
+                  getLocalStorage();
+                }
               });
             } else {
               alert("Error: " + response.statusText);
@@ -84,30 +127,3 @@ var getSearchProps = function () {
     }
   });
 };
-
-// function getApi() {
-//   var requestUrl =
-//     "http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1db3202914b346967d7bc18a2c8ad6a9";
-
-//   fetch(requestUrl)
-//     .then(function (response) {
-//       return response;
-//     })
-//     .then(function (data) {
-//       //   for (var i = 0; i < data.length; i++) {
-//       //     var listItem = document.createElement("li");
-//       //     listItem.textContent = data[i].html_url;
-//       //     repoList.appendChild(listItem);
-//       //   }
-//       console.log(data);
-//     });
-// }
-
-// let sortedScores = scores.sort((a, b) => (a.score > b.score ? -1 : 1));
-// for (var i = 0; i < sortedScores.length; i++) {
-//   var p = document.createElement("p");
-//   p.innerText = `${i + 1} - ${sortedScores[i].initials} - ${
-//     sortedScores[i].score
-//   }`;
-//   highScores.appendChild(p);
-// }
