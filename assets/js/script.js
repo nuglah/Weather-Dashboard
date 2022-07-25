@@ -1,6 +1,7 @@
 var cityFind = document.getElementById("city-find");
 var repoList = document.getElementById("list");
 var formatType = "";
+var forecast = [];
 
 $("#city-find").on("click", function (event) {
   event.preventDefault();
@@ -63,6 +64,12 @@ var getSearchProps = function () {
                 $("#wind").html(`Wind: ${current.wind_speed} MPH`);
                 $("#humidity").html(`Humidity: ${current.humidity}%`);
                 $("#uv-index").html(`UV Index: ${current.uvi}`);
+                // for (let i = 0; i < daily.length; i++) {
+                //   $("#temp").html(`Temp: ${daily[i].temp}°F`);
+                //   $("#wind").html(`Wind: ${daily[i].wind_speed} MPH`);
+                //   $("#humidity").html(`Humidity: ${daily[i].humidity}%`);
+                //   return i === 5;
+                // }
               });
             } else {
               alert("Error: " + response.statusText);
