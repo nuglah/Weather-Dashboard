@@ -35,7 +35,7 @@ $("#city-find").on("click", function (event) {
 var getSearchProps = function (input, saveHistory) {
   const q = input;
   var geoUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
     encodeURIComponent(q) +
     "&limit=1&appid=1db3202914b346967d7bc18a2c8ad6a9";
 
