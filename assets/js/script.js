@@ -3,6 +3,7 @@ var formatType = "";
 var cityHistory = document.getElementById("list");
 var locations = JSON.parse(localStorage.getItem("locations")) || [];
 
+// Uses local storage from locations to build a button in the history section
 function getLocalStorage() {
   $("#history").empty();
   if (locations.length) {
@@ -15,6 +16,7 @@ function getLocalStorage() {
       buttons.appendTo("#history");
     }
   }
+  // Makes the history buttons click and run that city name again in the search.
   $(".historyBtn").on("click", function (event) {
     event.preventDefault();
     console.log("event", event.target.innerText);
@@ -26,12 +28,7 @@ function getLocalStorage() {
 }
 getLocalStorage();
 
-$("#city-find").on("click", function (event) {
-  event.preventDefault();
-  console.log("beef");
-  getSearchProps(document.getElementById("input").value, true);
-});
-
+// Main function that takes the city name and receives data from open weather api. It then shows the desired info in the current weather and forecast section.
 var getSearchProps = function (input, saveHistory) {
   const q = input;
   var geoUrl =
@@ -130,3 +127,9 @@ var getSearchProps = function (input, saveHistory) {
     }
   });
 };
+
+// On click for the search button that starts the getSearchProps function
+$("#city-find").on("click", function (event) {
+  event.preventDefault();
+  getSearchProps(document.getElementById("input").value, true);
+});

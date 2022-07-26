@@ -13,7 +13,6 @@ https://nuglah.github.io/ryan-weather-dashboard/
 The search bar will take any US city name and if valid will show the current weather for that city with some stats like tempature and uv index after clicking the search button. A five day forecast will also appear showing some stats for the next five days in that city. A history of all your searches will appear under the search bar. You can click on one and it will get that cities weather again.
 
 ![alt text](assets/images/screen1.png)
-![alt text](assets/images/screen2.png)
 
 ## Credits
 
