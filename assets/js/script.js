@@ -77,7 +77,7 @@ var getSearchProps = function (input, saveHistory) {
                   $("#wind" + i).html(`Wind: ${daily[i].wind_speed} MPH`);
                   $("#humidity" + i).html(`Humidity: ${daily[i].humidity}%`);
                 }
-                $("#forecast").attr("style", "display:block");
+                $("#forecast").attr("style", "display:block;");
                 const date = dayjs().format("MM/DD/YYYY");
                 $("#location").html(`${result[0].name} (${date})`);
                 $("#current-weather-img").attr("src", imageUrl);

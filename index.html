@@ -15,7 +15,7 @@
   </head>
   <body>
     <div class="container">
-      <!-- Content here -->
+      <!-- Header -->
       <header class="jumbotron">
         <h1 class="display-3">Weather Dashboard</h1>
       </header>
@@ -26,6 +26,7 @@
               <label for="exampleInputEmail1">Search for a city:</label>
             </div>
             <div class="row">
+              <!-- Search bar -->
               <input
                 type="text"
                 name="city-input"
@@ -34,11 +35,17 @@
               />
             </div>
             <div class="row">
-              <button id="city-find" type="submit" class="btn btn-primary">
+              <!-- search button -->
+              <button
+                id="city-find"
+                type="submit"
+                class="btn btn-primary col-9"
+              >
                 Search
               </button>
             </div>
             <div class="row">
+              <!-- div for history -->
               <div id="history" class="col-12"></div>
             </div>
           </div>
