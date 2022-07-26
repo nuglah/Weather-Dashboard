@@ -74,7 +74,10 @@ var getSearchProps = function (input, saveHistory) {
                   $("#daily-weather-img" + i).attr("src", dailyImageUrl);
                   $("#daily-weather-img" + i).show();
                   $("#temp" + i).html(`Temp: ${daily[i].temp.max}°F`);
+                  $("#wind" + i).html(`Wind: ${daily[i].wind_speed} MPH`);
+                  $("#humidity" + i).html(`Humidity: ${daily[i].humidity}%`);
                 }
+                $("#forecast").attr("style", "display:block");
                 const date = dayjs().format("MM/DD/YYYY");
                 $("#location").html(`${result[0].name} (${date})`);
                 $("#current-weather-img").attr("src", imageUrl);
